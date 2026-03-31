@@ -60,14 +60,11 @@ void MinHeap<T>::Push(const T& x){
         cout << "Heap is full!" << endl;
         return;
     }
-
     int i = ++size;
-
     while(i != 1 && x < heap[i / 2]){
         heap[i] = heap[i / 2];
         i /= 2;
     }
-
     heap[i] = x;
 }
 
@@ -77,59 +74,34 @@ void MinHeap<T>::Pop(){
         cerr << "Heap is empty!" << endl;
         return;
     }
-
     T lastElement = heap[size--];
     int current = 1;
     int child = 2;
-
     while(child <= size){
         if(child < size && heap[child + 1] < heap[child]){
             child++;
         }
-
         if(lastElement <= heap[child]){
             break;
         }
-
         heap[current] = heap[child];
         current = child;
         child = current * 2;
     }
-
     heap[current] = lastElement;
 }
 
 int main(){
     MinHeap<int> h(10);
-
     h.Push(10);
     h.Push(4);
     h.Push(15);
     h.Push(2);
     h.Push(8);
-
-    cout << "Top = " << h.Top() << endl;
-    h.Pop();
-    cout << "Pop\n";
-
-    cout << "Top = " << h.Top() << endl;
-    h.Pop();
-    cout << "Pop\n";
-    
-    cout << "Top = " << h.Top() << endl;
-    h.Pop();
-    cout << "Pop\n";
-    
-    cout << "Top = " << h.Top() << endl;
-    h.Pop();
-    cout << "Pop\n";
-    
-    cout << "Top = " << h.Top() << endl;
-    h.Pop();
-    cout << "Pop\n";
-
-    cout << "Top = " << h.Top() << endl;
-    h.Pop();
-    cout << "Pop\n";
+    for(int i = 0; i < 6; i++){
+        cout << "Top = " << h.Top() << endl;
+        h.Pop();
+        cout << "Pop\n";
+    }
     return 0;
 }
