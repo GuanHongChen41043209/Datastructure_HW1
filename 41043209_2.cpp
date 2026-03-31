@@ -36,10 +36,8 @@ int Height(TreeNode* root){
     if(root == nullptr){
         return 0;
     }
-
     int leftHeight = Height(root->left);
     int rightHeight = Height(root->right);
-
     if(leftHeight > rightHeight){
         return 1 + leftHeight;
     }
@@ -48,35 +46,22 @@ int Height(TreeNode* root){
     }
 }
 
-void DeleteTree(TreeNode* root){
-    if(root == nullptr){
-        return;
-    }
-    DeleteTree(root->left);
-    DeleteTree(root->right);
-    delete root;
-}
-
 TreeNode* FindMin(TreeNode* root, int& steps){
     if(root == nullptr){
         return nullptr;
     }
-
     while(root->left != nullptr){
         steps++;
         root = root->left;
     }
-
     return root;
 }
 
 TreeNode* Delete(TreeNode* root, int k, int& steps){
     steps++;
-
     if(root == nullptr){
         return nullptr;
     }
-
     if(k < root->key){
         root->left = Delete(root->left, k, steps);
     }
@@ -104,7 +89,6 @@ TreeNode* Delete(TreeNode* root, int k, int& steps){
             root->right = Delete(root->right, temp->key, steps);
         }
     }
-
     return root;
 }
 
@@ -147,20 +131,18 @@ int main(){
                 }
             }
             int h = Height(root);
-            double ratio = h / log2(n);
             totalHeight += h;
-            totalRatio += ratio;
         }
         double averageHeight = totalHeight / testTimes;
-        double averageRatio = totalRatio / testTimes;
+        double Ratio = averageHeight / log2(n);
         cout << "n = " << n
              << ",\taverage Height = " << averageHeight
-             << ",\taverage height/log2(n) = " << averageRatio << endl;
+             << ",\theight/log2(n) = " << Ratio << endl;
     }
     cout << "0 exists before delete:" << Search(root, 0) << endl;
     int steps = 0;
     root = Delete(root, 0, steps);
     cout << "Delete '0' steps = " << steps << endl;
-    cout << "0 exists before delete:" << Search(root, 0) << endl;
+    cout << "0 exists after delete:" << Search(root, 0) << endl;
     return 0;
 }
